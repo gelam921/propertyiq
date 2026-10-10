@@ -2,6 +2,7 @@ import pandas as pd
 
 from propertyiq.processing.base import Transformer
 
+
 class PriceNormalizer(Transformer):
     name = "price_normalizer"
 
