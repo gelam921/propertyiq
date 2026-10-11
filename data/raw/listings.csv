@@ -1,0 +1,313 @@
+listing_id,address,city,state,price,beds,baths,sqft
+L0000,  4516 maple ave ,ashburn,va,"$321,435",2,1.5,
+L0001,  8945 oak st ,Ashburn,VA,"$481,302",5,2.5,1119.0
+L0002,  3821 elm dr ,Austin,TX,"$179,576",5,1.0,822.0
+L0003,  8938 cedar ln ,Tampa,FL,"$370,550",2,2.5,1514.0
+L0004,  116 maple ave ,Tampa,FL,"$472,425",6,2.5,1839.0
+L0005,  5524 oak st ,Raleigh,NC,,1,2.5,1838.0
+L0006,  9901 pine rd ,Austin,TX,"$757,593",1,2.5,2170.0
+L0007,  6211 oak st ,tampa,FL,"$336,865",5,2.0,1211.0
+L0008,  5935 elm dr ,Ashburn,VA,"$1,548,049",2,1.0,3233.0
+L0009,  4751 oak st ,Austin,TX,"$823,797",2,1.0,3408.0
+L0010,  5987 maple ave ,Boise,ID,"$476,432",3,2.0,1838.0
+L0011,  1179 elm dr ,Denver,co,"$1,004,244",6,1.5,3445.0
+L0012,  7583 cedar ln ,Tampa,FL,"$676,351",3,3.0,3686.0
+L0013,  926 maple ave ,Denver,CO,"$1,062,271",1,2.0,
+L0014,  9302 lake view ct ,boise,ID,"$354,273",3,1.5,1796.0
+L0015,  7527 maple ave ,Ashburn,VA,"$1,000,287",3,1.5,2744.0
+L0016,  4314 lake view ct ,Denver,CO,"$1,317,977",5,2.5,3751.0
+L0017,  2276 elm dr ,Tampa,FL,"$464,025",4,1.0,2335.0
+L0018,  2631 lake view ct ,Austin,TX,"$262,793",4,3.0,1149.0
+L0019,  7678 elm dr ,Austin,TX,"$610,809",3,3.0,2276.0
+L0020,  8807 pine rd ,Austin,TX,"$1,140,435",6,2.0,3486.0
+L0021,  7443 oak st ,austin,TX,"$527,960",6,2.0,1902.0
+L0022,  1753 lake view ct ,Tampa,fl,"$311,479",3,3.0,1431.0
+L0023,  2656 elm dr ,Tampa,FL,"$259,705",5,1.0,1514.0
+L0024,  1842 pine rd ,Tampa,FL,"$436,180",3,1.5,2027.0
+L0025,  1300 oak st ,Austin,TX,"$597,536",6,2.5,1686.0
+L0026,  2113 lake view ct ,Austin,TX,"$965,039",4,3.0,
+L0027,  9948 cedar ln ,Denver,CO,"$614,960",2,3.0,1785.0
+L0028,  5117 cedar ln ,ashburn,VA,"$1,125,030",6,2.0,3525.0
+L0029,  4071 maple ave ,Boise,ID,"$729,851",1,2.0,2819.0
+L0030,  9651 maple ave ,Austin,TX,"$927,213",1,1.0,3109.0
+L0031,  1114 oak st ,Ashburn,VA,"$939,090",3,1.0,3284.0
+L0032,  7963 maple ave ,Tampa,FL,"$314,492",5,1.5,1674.0
+L0033,  3991 cedar ln ,Ashburn,va,"$1,235,468",4,1.5,3038.0
+L0034,  5814 cedar ln ,Austin,TX,"$347,141",4,2.5,1097.0
+L0035,  1622 oak st ,ashburn,VA,"$395,422",4,2.0,921.0
+L0036,  8796 cedar ln ,Austin,TX,"$404,470",2,2.5,1718.0
+L0037,  1245 cedar ln ,Denver,CO,"$609,573",5,1.0,1840.0
+L0038,  251 oak st ,Austin,TX,"$1,265,578",2,1.5,3371.0
+L0039,  6580 oak st ,Boise,ID,"$709,046",2,2.5,
+L0040,  7464 pine rd ,Austin,TX,"$570,590",4,3.0,2299.0
+L0041,  3121 pine rd ,Ashburn,VA,"$1,405,006",2,1.0,3642.0
+L0042,  5148 oak st ,tampa,FL,"$824,850",1,3.0,3713.0
+L0043,  8711 maple ave ,Boise,ID,"$920,867",1,3.0,2759.0
+L0044,  1123 lake view ct ,Austin,tx,"$312,799",2,2.5,1461.0
+L0045,  9750 oak st ,Austin,TX,"$742,780",5,1.0,3033.0
+L0046,  8575 pine rd ,Boise,ID,"$949,943",3,1.5,3392.0
+L0047,  4361 cedar ln ,Ashburn,VA,"$1,255,316",2,2.0,3633.0
+L0048,  1198 oak st ,Boise,ID,"$668,942",4,3.0,1995.0
+L0049,  3502 elm dr ,tampa,FL,"$178,760",3,1.5,1109.0
+L0050,  6064 pine rd ,Raleigh,NC,"$294,369",2,2.5,981.0
+L0051,  8676 oak st ,Tampa,FL,"$683,949",6,3.0,3581.0
+L0052,  2210 pine rd ,Raleigh,NC,"$636,600",1,1.0,
+L0053,  4626 elm dr ,Ashburn,VA,"$914,991",2,2.0,2966.0
+L0054,  4335 elm dr ,Denver,CO,"$1,287,136",4,2.0,3515.0
+L0055,  4543 oak st ,Austin,tx,"$336,513",1,2.0,1078.0
+L0056,  2657 lake view ct ,denver,CO,"$1,444,205",4,3.0,3309.0
+L0057,  1842 oak st ,Ashburn,VA,"$987,999",6,1.5,2451.0
+L0058,  9553 elm dr ,Tampa,FL,"$220,358",2,2.5,847.0
+L0059,  663 pine rd ,Denver,CO,"$261,214",2,1.5,871.0
+L0060,  9183 cedar ln ,Ashburn,VA,"$397,671",5,1.5,1121.0
+L0061,  2910 cedar ln ,Denver,CO,"$594,754",1,1.5,1365.0
+L0062,  6755 lake view ct ,Ashburn,VA,"$936,844",6,1.5,2060.0
+L0063,  1781 cedar ln ,raleigh,NC,"$387,473",1,2.5,1352.0
+L0064,  7551 pine rd ,Denver,CO,"$611,747",3,1.5,1517.0
+L0065,  6538 pine rd ,Denver,CO,"$295,657",3,1.0,
+L0066,  6558 lake view ct ,Raleigh,nc,"$566,987",5,2.0,2138.0
+L0067,  4289 maple ave ,Austin,TX,"$415,171",5,2.0,1172.0
+L0068,  5673 lake view ct ,Austin,TX,"$349,638",3,2.5,1144.0
+L0069,  9456 maple ave ,Tampa,FL,"$465,761",3,1.0,2794.0
+L0070,  8831 lake view ct ,ashburn,VA,"$677,725",6,1.5,2486.0
+L0071,  5419 elm dr ,Raleigh,NC,"$447,268",3,1.0,2466.0
+L0072,  6701 pine rd ,Ashburn,VA,"$753,763",4,2.0,1930.0
+L0073,  6221 lake view ct ,Tampa,FL,"$215,635",6,1.5,1221.0
+L0074,  8987 oak st ,Tampa,FL,"$578,284",3,2.0,3031.0
+L0075,  9949 lake view ct ,Denver,CO,"$976,603",3,2.5,2460.0
+L0076,  8385 cedar ln ,Boise,ID,"$740,159",6,1.5,2511.0
+L0077,  5501 oak st ,ashburn,va,"$354,345",2,2.0,1047.0
+L0078,  767 maple ave ,Denver,CO,"$404,784",4,3.0,
+L0079,  9441 maple ave ,Austin,TX,"$702,960",6,2.5,2565.0
+L0080,  100 oak st ,Boise,ID,"$527,244",4,1.5,2336.0
+L0081,  832 elm dr ,Denver,CO,"$1,216,018",2,1.0,3550.0
+L0082,  8712 elm dr ,Boise,ID,"$392,357",5,2.0,1246.0
+L0083,  8280 cedar ln ,Boise,ID,"$1,017,470",5,2.5,3209.0
+L0084,  7383 pine rd ,denver,CO,"$1,544,823",2,2.0,3746.0
+L0085,  4509 cedar ln ,Tampa,FL,"$625,758",1,2.0,2684.0
+L0086,  8859 oak st ,Denver,CO,"$553,586",2,1.5,1812.0
+L0087,  3515 oak st ,Denver,CO,"$858,041",4,2.5,2268.0
+L0088,  1030 maple ave ,Raleigh,nc,"$699,663",4,2.5,2922.0
+L0089,  9442 cedar ln ,Tampa,FL,"$547,122",4,1.0,3548.0
+L0090,  6875 elm dr ,Raleigh,NC,"$541,556",6,3.0,1923.0
+L0091,  4481 cedar ln ,tampa,FL,"$344,863",4,1.0,
+L0092,  6634 lake view ct ,Boise,ID,"$609,693",2,2.5,2076.0
+L0093,  6465 elm dr ,Denver,CO,"$1,123,247",5,1.0,3248.0
+L0094,  7574 maple ave ,Austin,TX,"$921,348",1,2.0,3332.0
+L0095,  5365 pine rd ,Boise,ID,"$449,885",4,2.0,2040.0
+L0096,  7715 oak st ,Boise,ID,"$554,997",6,3.0,1733.0
+L0097,  1134 lake view ct ,Austin,TX,"$514,239",1,1.0,2133.0
+L0098,  2506 maple ave ,denver,CO,"$618,323",2,2.5,1516.0
+L0099,  3581 cedar ln ,Ashburn,va,"$471,656",6,2.0,1168.0
+L0100,  1886 maple ave ,Raleigh,NC,"$360,585",3,1.0,1387.0
+L0101,  9443 lake view ct ,Tampa,FL,"$219,299",4,2.5,805.0
+L0102,  3988 oak st ,Ashburn,VA,"$438,411",6,2.0,1512.0
+L0103,  9282 oak st ,Ashburn,VA,"$1,453,704",3,3.0,3159.0
+L0104,  8299 lake view ct ,Boise,ID,"$838,470",3,1.0,
+L0105,  5944 lake view ct ,boise,ID,"$551,017",4,1.5,2707.0
+L0106,  4435 elm dr ,Boise,ID,"$432,089",5,2.5,1421.0
+L0107,  9717 pine rd ,Boise,ID,"$791,859",3,1.5,2484.0
+L0108,  4005 cedar ln ,Austin,TX,"$653,980",5,3.0,1842.0
+L0109,  8108 pine rd ,Ashburn,VA,"$789,809",2,2.5,2252.0
+L0110,  5586 pine rd ,Denver,co,"$860,011",5,2.0,2153.0
+L0111,  3140 oak st ,Tampa,FL,"$162,151",2,2.5,741.0
+L0112,  7810 lake view ct ,boise,ID,"$915,911",6,2.5,2974.0
+L0113,  3640 cedar ln ,Boise,ID,"$155,197",6,1.5,770.0
+L0114,  7763 elm dr ,Raleigh,NC,"$876,651",5,2.0,3419.0
+L0115,  5774 lake view ct ,Boise,ID,"$1,031,606",4,2.0,3755.0
+L0116,  3165 pine rd ,Raleigh,NC,"$354,312",1,3.0,1729.0
+L0117,  7943 pine rd ,Ashburn,VA,"$462,062",6,3.0,
+L0118,  1657 maple ave ,Tampa,FL,"$592,507",3,1.5,3144.0
+L0119,  8761 maple ave ,raleigh,NC,"$308,946",3,1.0,1434.0
+L0120,  2078 lake view ct ,Austin,TX,"$749,980",4,1.0,2966.0
+L0121,  7853 cedar ln ,Austin,tx,"$767,350",3,1.5,3051.0
+L0122,  7837 oak st ,Austin,TX,"$633,499",1,2.5,1734.0
+L0123,  888 maple ave ,Boise,ID,"$279,827",2,3.0,1003.0
+L0124,  1950 elm dr ,Raleigh,NC,"$332,096",4,3.0,1048.0
+L0125,  8571 cedar ln ,Tampa,FL,"$585,192",4,2.5,3233.0
+L0126,  5013 elm dr ,raleigh,NC,"$983,741",5,1.0,3110.0
+L0127,  3414 lake view ct ,Tampa,FL,"$613,999",2,2.0,3731.0
+L0128,  2857 elm dr ,Ashburn,VA,"$318,752",1,1.5,1032.0
+L0129,  9739 cedar ln ,Austin,TX,"$665,174",3,1.0,2373.0
+L0130,  7448 oak st ,Denver,CO,"$716,223",6,1.5,
+L0131,  3251 cedar ln ,Raleigh,NC,"$839,820",1,3.0,3260.0
+L0132,  4362 maple ave ,Denver,co,"$896,716",1,1.0,3352.0
+L0133,  9335 pine rd ,denver,CO,"$701,742",4,1.0,1959.0
+L0134,  6604 pine rd ,Boise,ID,"$828,330",5,3.0,3520.0
+L0135,  663 cedar ln ,Boise,ID,"$497,446",6,2.0,2493.0
+L0136,  3760 lake view ct ,Tampa,FL,"$267,425",5,3.0,1725.0
+L0137,  9451 oak st ,Austin,TX,"$1,189,910",2,2.5,3453.0
+L0138,  4567 maple ave ,Tampa,FL,"$704,439",5,2.5,3368.0
+L0139,  7710 pine rd ,Ashburn,VA,"$1,352,481",4,2.0,2714.0
+L0140,  2644 pine rd ,raleigh,NC,"$642,142",4,2.5,3444.0
+L0141,  9022 oak st ,Raleigh,NC,"$1,057,140",4,1.0,3413.0
+L0142,  6632 elm dr ,Raleigh,NC,"$378,703",1,3.0,1733.0
+L0143,  8504 pine rd ,Boise,id,"$467,251",5,2.5,
+L0144,  3345 pine rd ,Ashburn,VA,"$1,128,378",5,1.5,2510.0
+L0145,  7951 oak st ,Raleigh,NC,"$748,953",1,3.0,2494.0
+L0146,  9034 oak st ,Denver,CO,"$971,818",5,2.5,3607.0
+L0147,  1868 cedar ln ,austin,TX,"$606,225",1,1.5,1620.0
+L0148,  4489 cedar ln ,Boise,ID,"$848,280",4,2.5,3635.0
+L0149,  6294 maple ave ,Denver,CO,"$897,733",5,3.0,2570.0
+L0150,  4536 cedar ln ,Ashburn,VA,"$596,550",3,3.0,1259.0
+L0151,  4901 elm dr ,Raleigh,NC,"$150,941",5,2.5,710.0
+L0152,  5664 pine rd ,Denver,CO,"$876,889",5,3.0,2529.0
+L0153,  3100 lake view ct ,Boise,ID,"$861,642",2,3.0,2565.0
+L0154,  6740 oak st ,boise,id,"$535,929",3,2.5,1656.0
+L0155,  2502 cedar ln ,Ashburn,VA,"$819,176",1,1.5,2261.0
+L0156,  1654 cedar ln ,Tampa,FL,"$607,272",1,3.0,
+L0157,  6727 lake view ct ,Boise,ID,"$230,320",2,1.0,762.0
+L0158,  6522 lake view ct ,Boise,ID,"$429,893",1,2.0,1785.0
+L0159,  5198 lake view ct ,Ashburn,VA,"$1,041,170",6,2.5,2885.0
+L0160,  3856 lake view ct ,Tampa,FL,"$196,450",6,2.0,847.0
+L0161,  1622 lake view ct ,denver,CO,"$960,542",6,1.0,3758.0
+L0162,  484 oak st ,Boise,ID,"$411,133",3,1.0,1381.0
+L0163,  2395 maple ave ,Raleigh,NC,"$490,158",5,2.5,2168.0
+L0164,  2795 maple ave ,Tampa,FL,"$889,392",1,3.0,3492.0
+L0165,  8163 elm dr ,Boise,id,"$958,345",2,1.5,3238.0
+L0166,  4193 lake view ct ,Boise,ID,"$752,827",1,2.5,3312.0
+L0167,  1220 cedar ln ,Raleigh,NC,"$873,193",3,3.0,3475.0
+L0168,  4107 cedar ln ,raleigh,NC,"$1,035,596",3,1.5,3317.0
+L0169,  6258 elm dr ,Boise,ID,"$545,795",3,3.0,
+L0170,  6494 pine rd ,Raleigh,NC,"$764,163",1,3.0,3564.0
+L0171,  9945 lake view ct ,Ashburn,VA,"$1,872,735",4,2.0,3750.0
+L0172,  3598 lake view ct ,Denver,CO,"$1,275,297",2,3.0,3186.0
+L0173,  2250 lake view ct ,Raleigh,NC,"$979,985",1,1.0,3476.0
+L0174,  5987 lake view ct ,Raleigh,NC,"$440,891",2,1.0,2505.0
+L0175,  2887 maple ave ,raleigh,NC,"$572,151",2,3.0,2038.0
+L0176,  4475 maple ave ,Raleigh,nc,"$703,289",3,2.5,2874.0
+L0177,  1896 cedar ln ,Raleigh,NC,"$1,122,476",1,1.5,3757.0
+L0178,  6521 elm dr ,Denver,CO,"$1,334,144",3,1.0,3470.0
+L0179,  2034 cedar ln ,Boise,ID,"$173,337",3,2.0,757.0
+L0180,  6096 oak st ,Tampa,FL,"$584,392",6,1.5,2260.0
+L0181,  9208 pine rd ,Boise,ID,"$229,206",5,1.5,802.0
+L0182,  7616 lake view ct ,ashburn,VA,"$402,822",3,2.5,
+L0183,  619 pine rd ,Austin,TX,"$267,224",4,1.0,1272.0
+L0184,  2232 cedar ln ,Austin,TX,"$591,338",4,2.0,1661.0
+L0185,  8860 cedar ln ,Ashburn,VA,"$1,627,213",5,1.5,3743.0
+L0186,  8027 elm dr ,Boise,ID,"$684,889",4,2.0,3382.0
+L0187,  7274 cedar ln ,Austin,tx,"$939,760",2,2.0,3527.0
+L0188,  5886 oak st ,Austin,TX,"$932,754",4,2.0,3508.0
+L0189,  7460 oak st ,denver,CO,"$516,225",6,1.5,1200.0
+L0190,  359 oak st ,Ashburn,VA,"$1,365,955",3,1.5,3319.0
+L0191,  9090 maple ave ,Denver,CO,"$840,189",5,1.5,3012.0
+L0192,  9774 oak st ,Denver,CO,"$807,114",3,1.5,2045.0
+L0193,  2868 oak st ,Denver,CO,"$839,205",6,1.0,2912.0
+L0194,  3908 elm dr ,Denver,CO,"$235,649",3,1.0,760.0
+L0195,  6907 elm dr ,Denver,CO,"$442,707",1,1.0,
+L0196,  8418 elm dr ,boise,ID,"$789,074",1,2.5,2536.0
+L0197,  720 lake view ct ,Tampa,FL,"$441,235",6,3.0,1607.0
+L0198,  520 oak st ,Raleigh,nc,"$683,844",4,2.5,2576.0
+L0199,  7277 oak st ,Boise,ID,"$715,831",1,2.0,3510.0
+L0200,  4515 elm dr ,Tampa,FL,"$209,388",6,3.0,1307.0
+L0201,  9797 elm dr ,Tampa,FL,"$701,289",3,2.5,3616.0
+L0202,  1884 lake view ct ,Tampa,FL,"$659,936",6,3.0,3179.0
+L0203,  3753 cedar ln ,ashburn,VA,"$588,663",3,2.5,1580.0
+L0204,  5130 cedar ln ,Boise,ID,"$729,081",3,2.0,2403.0
+L0205,  7780 oak st ,Raleigh,NC,"$360,194",1,1.0,1325.0
+L0206,  6115 maple ave ,Austin,TX,"$540,393",5,1.0,2468.0
+L0207,  2012 cedar ln ,Tampa,FL,"$674,056",3,2.5,3000.0
+L0208,  9847 pine rd ,Ashburn,VA,"$453,345",3,1.0,
+L0209,  7910 maple ave ,Tampa,fl,"$498,158",1,2.0,2778.0
+L0210,  4574 elm dr ,tampa,FL,"$367,356",2,2.5,2205.0
+L0211,  9131 oak st ,Tampa,FL,"$751,225",5,2.0,3246.0
+L0212,  5072 pine rd ,Austin,TX,"$358,909",3,1.0,1438.0
+L0213,  6576 oak st ,Denver,CO,"$453,153",2,1.0,1286.0
+L0214,  6173 cedar ln ,Austin,TX,"$1,104,912",4,2.0,3756.0
+L0215,  5324 elm dr ,Denver,CO,"$665,803",5,1.0,2215.0
+L0216,  825 lake view ct ,Austin,TX,"$306,850",1,2.0,1337.0
+L0217,  9956 cedar ln ,boise,ID,"$868,130",4,2.0,3411.0
+L0218,  5665 cedar ln ,Denver,CO,"$1,294,586",1,2.0,3792.0
+L0219,  8643 lake view ct ,Ashburn,VA,"$1,428,547",3,1.0,3479.0
+L0220,  907 oak st ,Denver,co,"$1,013,876",2,2.0,2318.0
+L0221,  4752 pine rd ,Denver,CO,"$495,463",1,1.0,
+L0222,  2126 cedar ln ,Boise,ID,"$960,693",5,1.5,3759.0
+L0223,  5812 oak st ,Tampa,FL,"$776,888",4,1.0,2988.0
+L0224,  1285 pine rd ,boise,ID,"$201,936",5,2.5,776.0
+L0225,  6853 pine rd ,Tampa,FL,"$574,632",1,2.5,2356.0
+L0226,  7548 lake view ct ,Austin,TX,"$470,987",3,1.0,2030.0
+L0227,  9658 cedar ln ,Boise,ID,"$255,601",5,1.0,1133.0
+L0228,  3640 pine rd ,Boise,ID,"$602,811",2,1.0,1970.0
+L0229,  8365 maple ave ,Tampa,FL,"$548,251",3,2.0,3293.0
+L0230,  3881 oak st ,Ashburn,VA,"$1,545,794",2,2.0,3343.0
+L0231,  1244 maple ave ,denver,co,"$507,191",6,2.5,1410.0
+L0232,  9504 cedar ln ,Boise,ID,"$1,049,315",6,3.0,3790.0
+L0233,  5305 lake view ct ,Ashburn,VA,"$1,658,967",3,1.5,3302.0
+L0234,  4971 pine rd ,Boise,ID,"$256,198",5,1.0,
+L0235,  7575 cedar ln ,Raleigh,NC,"$505,574",1,1.0,2778.0
+L0236,  1489 elm dr ,Raleigh,NC,"$341,934",5,3.0,1875.0
+L0237,  682 cedar ln ,Boise,ID,"$725,352",5,1.5,2595.0
+L0238,  2481 oak st ,raleigh,NC,"$765,484",4,1.0,3178.0
+L0239,  2837 oak st ,Raleigh,NC,"$665,112",2,2.5,3625.0
+L0240,  2610 pine rd ,Boise,ID,"$769,291",3,2.0,2846.0
+L0241,  9805 oak st ,Boise,ID,"$737,319",6,2.0,2374.0
+L0242,  6343 pine rd ,Austin,tx,"$448,136",3,3.0,2050.0
+L0243,  2327 pine rd ,Denver,CO,"$524,085",3,2.5,2065.0
+L0244,  1398 pine rd ,Denver,CO,"$1,196,300",5,2.5,3137.0
+L0245,  8634 oak st ,ashburn,VA,"$944,719",6,2.5,2045.0
+L0246,  5070 maple ave ,Tampa,FL,"$336,107",2,2.0,2182.0
+L0247,  2263 maple ave ,Boise,ID,"$331,249",1,2.0,
+L0248,  8636 oak st ,Austin,TX,"$933,300",6,2.0,2779.0
+L0249,  2537 maple ave ,Tampa,FL,"$283,425",2,3.0,1236.0
+L0250,  6741 pine rd ,Denver,CO,"$1,191,666",6,1.5,3653.0
+L0251,  7365 maple ave ,Boise,ID,"$743,216",5,1.5,3200.0
+L0252,  3188 pine rd ,raleigh,NC,"$795,982",6,3.0,2621.0
+L0253,  6266 elm dr ,Boise,id,"$802,631",5,2.5,2591.0
+L0254,  2277 pine rd ,Denver,CO,"$607,019",1,2.5,1517.0
+L0255,  8462 oak st ,Raleigh,NC,"$915,486",3,1.0,2971.0
+L0256,  8420 maple ave ,Denver,CO,"$597,036",4,1.0,1817.0
+L0257,  446 cedar ln ,Denver,CO,"$1,062,345",1,2.5,2547.0
+L0258,  1347 pine rd ,Tampa,FL,"$406,751",2,1.0,2231.0
+L0259,  5503 maple ave ,raleigh,NC,"$325,080",2,1.0,1105.0
+L0260,  2283 lake view ct ,Raleigh,NC,"$719,886",4,2.5,
+L0261,  321 pine rd ,Tampa,FL,"$194,257",2,1.5,721.0
+L0262,  6944 oak st ,Tampa,FL,"$848,959",3,1.5,3678.0
+L0263,  6888 lake view ct ,Raleigh,NC,"$213,559",5,2.5,1199.0
+L0264,  8199 elm dr ,Austin,tx,"$400,724",5,1.0,1154.0
+L0265,  2362 pine rd ,Ashburn,VA,"$1,141,983",4,1.0,2810.0
+L0266,  6835 maple ave ,tampa,FL,"$392,406",6,1.0,2145.0
+L0267,  8628 elm dr ,Tampa,FL,"$349,332",5,3.0,2177.0
+L0268,  7712 oak st ,Tampa,FL,"$158,499",6,2.5,783.0
+L0269,  5860 oak st ,Raleigh,NC,"$487,887",3,1.5,1738.0
+L0270,  9543 lake view ct ,Ashburn,VA,"$1,420,203",3,1.5,3391.0
+L0271,  2878 lake view ct ,Austin,TX,"$636,180",4,2.5,2143.0
+L0272,  1043 lake view ct ,Ashburn,VA,"$667,432",4,1.0,1446.0
+L0273,  3278 oak st ,raleigh,NC,"$270,742",3,2.0,
+L0274,  8907 cedar ln ,Tampa,FL,"$653,268",3,1.0,2331.0
+L0275,  793 lake view ct ,Ashburn,va,"$502,370",3,2.0,1482.0
+L0276,  6563 lake view ct ,Austin,TX,"$613,458",4,2.5,2207.0
+L0277,  8161 pine rd ,Raleigh,NC,"$357,295",5,2.0,1465.0
+L0278,  7065 elm dr ,Austin,TX,"$1,014,400",2,3.0,3678.0
+L0279,  5382 lake view ct ,Raleigh,NC,"$375,109",3,2.0,2015.0
+L0280,  2740 lake view ct ,boise,ID,"$955,128",4,2.0,3168.0
+L0281,  5786 elm dr ,Boise,ID,"$264,481",4,2.0,873.0
+L0282,  6665 pine rd ,Ashburn,VA,"$270,609",5,1.5,934.0
+L0283,  7189 oak st ,Austin,TX,"$448,533",2,1.0,1284.0
+L0284,  6282 elm dr ,Denver,CO,"$1,041,731",1,3.0,3342.0
+L0285,  6087 pine rd ,Denver,CO,"$1,144,227",4,1.0,3481.0
+L0286,  6531 pine rd ,Tampa,fl,"$278,487",6,2.0,
+L0287,  3058 cedar ln ,denver,CO,"$282,259",5,2.5,1164.0
+L0288,  4274 lake view ct ,Tampa,FL,"$219,494",4,1.5,1182.0
+L0289,  8057 maple ave ,Tampa,FL,"$452,081",1,1.5,1869.0
+L0290,  7302 oak st ,Austin,TX,"$592,212",6,2.0,2551.0
+L0291,  9021 elm dr ,Ashburn,VA,"$929,410",3,2.0,2123.0
+L0292,  2862 pine rd ,Denver,CO,"$1,379,123",5,1.5,3615.0
+L0293,  3888 cedar ln ,Austin,TX,"$517,079",1,2.0,1523.0
+L0294,  9048 maple ave ,tampa,FL,"$607,658",5,1.0,3044.0
+L0295,  7852 elm dr ,Austin,TX,"$533,251",4,2.5,1966.0
+L0296,  5204 lake view ct ,Tampa,FL,"$168,295",1,2.5,1002.0
+L0297,  2112 elm dr ,Boise,id,"$939,013",6,3.0,3485.0
+L0298,  917 oak st ,Denver,CO,"$399,330",5,1.5,1228.0
+L0299,  3704 pine rd ,Raleigh,NC,"$267,746",5,2.0,
+L0189,  7460 oak st ,denver,CO,"$516,225",6,1.5,1200.0
+L0123,  888 maple ave ,Boise,ID,"$279,827",2,3.0,1003.0
+L0185,  8860 cedar ln ,Ashburn,VA,"$1,627,213",5,1.5,3743.0
+L0213,  6576 oak st ,Denver,CO,"$453,153",2,1.0,1286.0
+L0106,  4435 elm dr ,Boise,ID,"$432,089",5,2.5,1421.0
+L0127,  3414 lake view ct ,Tampa,FL,"$613,999",2,2.0,3731.0
+L0176,  4475 maple ave ,Raleigh,nc,"$703,289",3,2.5,2874.0
+L0073,  6221 lake view ct ,Tampa,FL,"$215,635",6,1.5,1221.0
+L0275,  793 lake view ct ,Ashburn,va,"$502,370",3,2.0,1482.0
+L0242,  6343 pine rd ,Austin,tx,"$448,136",3,3.0,2050.0
+L0266,  6835 maple ave ,tampa,FL,"$392,406",6,1.0,2145.0
+L0147,  1868 cedar ln ,austin,TX,"$606,225",1,1.5,1620.0
