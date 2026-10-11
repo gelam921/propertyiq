@@ -2,7 +2,12 @@ import pandas as pd
 import pytest
 
 from propertyiq.processing.base import Transformer
-from propertyiq.processing.transformers import PriceNormalizer, AddressStandardizer, Deduplicator, DerivedMetrics
+from propertyiq.processing.transformers import (
+    PriceNormalizer,
+    AddressStandardizer,
+    Deduplicator,
+    DerivedMetrics
+)
 
 
 def test_transformer_is_abstract():

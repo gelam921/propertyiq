@@ -1,0 +1,105 @@
+from dataclasses import FrozenInstanceError
+
+import pandas as pd
+import pytest
+
+from propertyiq.processing.base import Transformer
+from propertyiq.processing.pipeline import Pipeline, PipelineRun
+from propertyiq.processing.transformers import (
+    AddressStandardizer, Deduplicator, DerivedMetrics, PriceNormalizer,
+)
+
+
+def make_run(**overrides):
+    base = dict(
+        pipeline="p",
+        input_name="raw",
+        output_name="clean",
+        steps=["a"],
+        rows_in=3,
+        rows_out=2,
+        data=pd.DataFrame({"a": [1, 2]}),
+        finished_at="2026-01-01T00:00:00+00:00",
+    )
+    return PipelineRun(**{**base, **overrides})
+
+
+def test_run_stores_its_fields():
+    run = make_run()
+    assert run.pipeline == "p"
+    assert (run.input_name, run.output_name) == ("raw", "clean")
+    assert run.steps == ["a"]
+    assert (run.rows_in, run.rows_out) == (3, 2)
+    assert len(run.data) == 2
+
+
+def test_run_record_is_frozen():
+    run = make_run()
+    with pytest.raises(FrozenInstanceError):
+        run.rows_in = 99
+
+
+class Spy(Transformer):
+    def __init__(self, label, log):
+        self.name = label
+        self.log = log
+
+    def transform(self, df):
+        self.log.append(self.name)
+        return df
+
+
+def test_steps_run_in_order():
+    log = []
+    pipe = Pipeline("p", "raw", "clean", [Spy("a", log), Spy("b", log), Spy("c", log)])
+    pipe.run(pd.DataFrame({"x": [1]}))
+    assert log == ["a", "b", "c"]
+
+
+def test_pipeline_run_record_has_the_facts():
+    df = pd.DataFrame({"a": [1, 1, 2]})
+    run = Pipeline("p", "raw", "clean", [Deduplicator(subset=["a"])]).run(df)
+    assert isinstance(run, PipelineRun)
+    assert run.pipeline == "p"
+    assert (run.input_name, run.output_name) == ("raw", "clean")
+    assert run.steps == ["deduplicator"]
+    assert (run.rows_in, run.rows_out) == (3, 2)
+    assert isinstance(run.finished_at, str)
+
+
+def test_empty_pipeline_passes_data_through():
+    df = pd.DataFrame({"a": [1, 2]})
+    run = Pipeline("p", "raw", "clean", []).run(df)
+    assert run.steps == []
+    assert run.rows_in == run.rows_out == 2
+
+
+def test_input_dataframe_is_not_modified():
+    df = pd.DataFrame({"price": ["$1,000"]})
+    Pipeline("p", "raw", "clean", [PriceNormalizer()]).run(df)
+    assert df["price"].iloc[0] == "$1,000"
+
+
+def test_full_cleaning_chain():
+    df = pd.DataFrame({
+        "address": [" 1 main st ", "1 MAIN ST"],
+        "city": ["austin", "Austin"],
+        "state": ["tx", "TX"],
+        "price": ["$300,000", "$300,000"],
+        "sqft": [1000, 1000],
+    })
+    pipe = Pipeline(
+        "listings", "raw", "clean",
+        [
+            PriceNormalizer(),
+            AddressStandardizer(),
+            Deduplicator(subset=["address", "city", "state"]),
+            DerivedMetrics(),
+        ],
+    )
+    run = pipe.run(df)
+    assert run.rows_out == 1
+    assert run.data["price_per_sqft"].iloc[0] == 300.0
+    assert run.steps == [
+        "price_normalizer", "address_standardizer", "deduplicator", "derived_metrics",
+    ]
