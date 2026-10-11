@@ -10,28 +10,28 @@ class PriceNormalizer(Transformer):
         self.column = column
 
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
-        out = df.copy()
+        price_normalized = df.copy()
 
-        cleaned = out[self.column].astype(str).str.replace(r"[$,\s]", "", regex=True)
-        out[self.column] = pd.to_numeric(cleaned, errors="coerce")
+        cleaned = price_normalized[self.column].astype(str).str.replace(r"[$,\s]", "", regex=True)
+        price_normalized[self.column] = pd.to_numeric(cleaned, errors="coerce")
 
-        return out
+        return price_normalized
 
 
 class AddressStandardizer(Transformer):
     name = "address_standardizer"
 
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
-        cleaned = df.copy()
+        address_cleaned = df.copy()
 
         for col in ["address", "city"]:
-            if col in cleaned.columns:
-                cleaned[col] = cleaned[col].str.strip().str.title()
+            if col in address_cleaned.columns:
+                address_cleaned[col] = address_cleaned[col].str.strip().str.title()
 
-        if "state" in cleaned.columns:
-            cleaned["state"] = cleaned["state"].str.strip().str.upper()
+        if "state" in address_cleaned.columns:
+            address_cleaned["state"] = address_cleaned["state"].str.strip().str.upper()
 
-        return cleaned
+        return address_cleaned
 
 
 class Deduplicator(Transformer):
@@ -42,3 +42,14 @@ class Deduplicator(Transformer):
 
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
         return df.drop_duplicates(subset=self.subset, keep="first").reset_index(drop=True)
+
+
+class DerivedMetrics(Transformer):
+    name = "derived_metrics"
+
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        df = df.copy()
+        sqft = pd.to_numeric(df["sqft"], errors="coerce")
+        sqft = sqft.where(sqft > 0)
+        df['price_per_sqft'] = (df["price"] / sqft).round(2)
+        return df

@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 
 from propertyiq.processing.base import Transformer
-from propertyiq.processing.transformers import PriceNormalizer, AddressStandardizer, Deduplicator
+from propertyiq.processing.transformers import PriceNormalizer, AddressStandardizer, Deduplicator, DerivedMetrics
 
 
 def test_transformer_is_abstract():
@@ -62,3 +62,26 @@ def test_deduplicator_does_not_mutate_input():
 
 def test_deduplicator_has_a_name():
     assert Deduplicator(subset=["a"]).name != "transformer"
+
+
+def test_derived_metrics_handles_missing_and_zero_sqft():
+    df = pd.DataFrame({"price": [300000.0, 200000.0, 100000.0], "sqft": [1000, 0, None]})
+    out = DerivedMetrics().transform(df)
+    assert out["price_per_sqft"].iloc[0] == 300.0
+    assert out["price_per_sqft"].iloc[1:].isna().all()
+
+
+def test_derived_metrics_does_not_mutate_input():
+    df = pd.DataFrame({"price": [100.0], "sqft": [10]})
+    DerivedMetrics().transform(df)
+    assert "price_per_sqft" not in df.columns
+
+
+def test_derived_metrics_has_a_name():
+    assert DerivedMetrics().name != "transformer"
+
+
+def test_derived_metrics_ignores_negative_sqft():
+    df = pd.DataFrame({"price": [100.0], "sqft": [-5]})
+    out = DerivedMetrics().transform(df)
+    assert out["price_per_sqft"].isna().all()
