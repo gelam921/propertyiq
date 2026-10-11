@@ -32,3 +32,13 @@ class AddressStandardizer(Transformer):
             cleaned["state"] = cleaned["state"].str.strip().str.upper()
 
         return cleaned
+
+
+class Deduplicator(Transformer):
+    name = "deduplicator"
+
+    def __init__(self, subset: list[str]) -> None:
+        self.subset = subset
+
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        return df.drop_duplicates(subset=self.subset, keep="first").reset_index(drop=True)
