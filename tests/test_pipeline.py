@@ -5,6 +5,7 @@ import pytest
 
 from propertyiq.processing.base import Transformer
 from propertyiq.processing.pipeline import Pipeline, PipelineRun
+from propertyiq.processing.quality import NotNullRule, QualityReport, RangeRule, UniqueRule
 from propertyiq.processing.transformers import (
     AddressStandardizer,
     Deduplicator,
@@ -106,3 +107,33 @@ def test_full_cleaning_chain():
     assert run.steps == [
         "price_normalizer", "address_standardizer", "deduplicator", "derived_metrics",
     ]
+
+
+def test_run_without_rules_has_a_perfect_report():
+    run = Pipeline("p", "raw", "clean", []).run(pd.DataFrame({"a": [1]}))
+    assert isinstance(run.quality, QualityReport)
+    assert run.quality.score == 100.0
+    assert run.quality.results == []
+
+
+def test_run_validates_the_cleaned_output_not_the_input():
+    df = pd.DataFrame({"id": [1, 1, 2]})
+    pipe = Pipeline(
+        "p", "raw", "clean", [Deduplicator(subset=["id"])], rules=[UniqueRule(["id"])]
+    )
+    run = pipe.run(df)
+    assert run.quality.passed is True       # duplicates were removed before the check
+    assert run.quality.dataset == "clean"
+    assert run.quality.rows == 2
+
+
+def test_run_report_records_failures():
+    df = pd.DataFrame({"price": [100.0, None]})
+    pipe = Pipeline(
+        "p", "raw", "clean", [],
+        rules=[NotNullRule(["price"]), RangeRule("price", min_value=0)],
+    )
+    run = pipe.run(df)
+    assert run.quality.score == 50.0
+    assert len(run.quality.failures) == 1
+    assert run.quality.failures[0].failed_rows == 1
