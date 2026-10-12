@@ -3,7 +3,15 @@ from dataclasses import FrozenInstanceError
 import pandas as pd
 import pytest
 
-from propertyiq.processing.quality import NotNullRule, RangeRule, Rule, RuleResult, UniqueRule
+from propertyiq.processing.quality import (
+    NotNullRule,
+    QualityReport,
+    RangeRule,
+    Rule,
+    RuleResult,
+    UniqueRule,
+    Validator,
+)
 
 
 def test_rule_is_abstract():
@@ -107,3 +115,58 @@ def test_unique_returns_plain_python_types():
     result = UniqueRule(["id"]).check(pd.DataFrame({"id": [1, 1]}))
     assert type(result.failed_rows) is int
     assert type(result.passed) is bool
+
+
+def make_report(*passed_flags):
+    results = [RuleResult(f"r{i}", ok, 0 if ok else 1) for i, ok in enumerate(passed_flags)]
+    return QualityReport("ds", 10, results)
+
+
+def test_score_is_percentage_of_rules_passed():
+    assert make_report(True, True, False, False).score == 50.0
+    assert make_report(True, True, True).score == 100.0
+    assert make_report(False).score == 0.0
+
+
+def test_score_rounds_to_one_decimal():
+    assert make_report(True, False, False).score == 33.3
+
+
+def test_score_with_no_rules_is_100():
+    assert make_report().score == 100.0
+
+
+def test_passed_only_when_every_rule_passes():
+    assert make_report(True, True).passed is True
+    assert make_report(True, False).passed is False
+    assert make_report().passed is True
+
+
+def test_failures_lists_only_failed_results():
+    report = make_report(True, False, True, False)
+    assert [r.rule for r in report.failures] == ["r1", "r3"]
+
+
+def test_report_is_frozen():
+    with pytest.raises(FrozenInstanceError):
+        make_report(True).rows = 5
+
+
+def test_validator_runs_every_rule():
+    df = pd.DataFrame({"id": [1, 1], "price": [5.0, None]})
+    validator = Validator([
+        NotNullRule(["price"]),
+        UniqueRule(["id"]),
+        RangeRule("price", min_value=0),
+    ])
+    report = validator.run("ds", df)
+    assert report.dataset == "ds"
+    assert report.rows == 2
+    assert len(report.results) == 3
+    assert report.score == 33.3          # only the range rule passes
+
+
+def test_validator_with_no_rules():
+    report = Validator([]).run("ds", pd.DataFrame({"a": [1]}))
+    assert report.score == 100.0
+    assert report.results == []
