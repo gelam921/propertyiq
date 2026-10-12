@@ -1,4 +1,3 @@
-import pandas as pd
 import pytest
 
 from propertyiq.ingestion.base import BaseSource, SchemaError
