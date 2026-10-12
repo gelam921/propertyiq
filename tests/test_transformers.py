@@ -3,10 +3,10 @@ import pytest
 
 from propertyiq.processing.base import Transformer
 from propertyiq.processing.transformers import (
-    PriceNormalizer,
     AddressStandardizer,
     Deduplicator,
-    DerivedMetrics
+    DerivedMetrics,
+    PriceNormalizer,
 )
 
 

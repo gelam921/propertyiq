@@ -6,7 +6,10 @@ import pytest
 from propertyiq.processing.base import Transformer
 from propertyiq.processing.pipeline import Pipeline, PipelineRun
 from propertyiq.processing.transformers import (
-    AddressStandardizer, Deduplicator, DerivedMetrics, PriceNormalizer,
+    AddressStandardizer,
+    Deduplicator,
+    DerivedMetrics,
+    PriceNormalizer,
 )
 
 
