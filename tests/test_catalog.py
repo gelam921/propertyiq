@@ -1,3 +1,4 @@
+import json
 from dataclasses import FrozenInstanceError
 
 import pandas as pd
@@ -181,3 +182,47 @@ def test_search_returns_each_entry_once():
         make_entry("price_data", description="price", tags=["price"], columns=["price"])
     )
     assert len(catalog.search("price")) == 1
+
+
+def sample_entry():
+    cols = [
+        ColumnEntry("price", "float64", 0.0033, 290, ["1.0", "2.0"]),
+        ColumnEntry("city", "object", 0.0, 6, ["Austin"]),
+    ]
+    return DatasetEntry(
+        "t", 300, cols, "2026-01-01T00:00:00+00:00",
+        description="demo", owner="me", tags=["clean"], quality_score=66.7,
+    )
+
+
+def test_column_entry_round_trip():
+    col = ColumnEntry("a", "int64", 0.5, 2, ["1", "2"])
+    assert ColumnEntry.from_dict(col.to_dict()) == col
+
+
+def test_dataset_entry_round_trip():
+    entry = sample_entry()
+    assert DatasetEntry.from_dict(entry.to_dict()) == entry
+
+
+def test_to_dict_is_plain_data():
+    data = sample_entry().to_dict()
+    assert isinstance(data, dict)
+    assert isinstance(data["columns"][0], dict)
+
+
+def test_survives_json_text():
+    entry = sample_entry()
+    text = json.dumps(entry.to_dict())
+    assert DatasetEntry.from_dict(json.loads(text)) == entry
+
+
+def test_from_dict_builds_column_objects():
+    rebuilt = DatasetEntry.from_dict(sample_entry().to_dict())
+    assert all(isinstance(c, ColumnEntry) for c in rebuilt.columns)
+
+
+def test_missing_quality_score_survives():
+    entry = DatasetEntry("t", 0, [], "ts")
+    text = json.dumps(entry.to_dict())
+    assert DatasetEntry.from_dict(json.loads(text)) == entry
