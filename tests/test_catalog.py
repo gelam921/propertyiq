@@ -226,3 +226,56 @@ def test_missing_quality_score_survives():
     entry = DatasetEntry("t", 0, [], "ts")
     text = json.dumps(entry.to_dict())
     assert DatasetEntry.from_dict(json.loads(text)) == entry
+
+def test_save_then_load_round_trips(tmp_path):
+    catalog = Catalog()
+    catalog.register(sample_entry())
+    catalog.register(make_entry("other", tags=["raw"]))
+    path = tmp_path / "catalog.json"
+    catalog.save(path)
+
+    loaded = Catalog.load(path)
+    assert loaded.names() == ["other", "t"]
+    assert loaded.get("t") == sample_entry()
+
+
+def test_loaded_catalog_can_be_searched(tmp_path):
+    catalog = Catalog()
+    catalog.register(make_entry("a", columns=["price"]))
+    catalog.save(tmp_path / "c.json")
+    assert [e.name for e in Catalog.load(tmp_path / "c.json").search("price")] == ["a"]
+
+
+def test_load_missing_file_gives_empty_catalog(tmp_path):
+    loaded = Catalog.load(tmp_path / "nope.json")
+    assert isinstance(loaded, Catalog)
+    assert len(loaded) == 0
+
+
+def test_save_creates_missing_folders(tmp_path):
+    path = tmp_path / "deep" / "er" / "catalog.json"
+    Catalog().save(path)
+    assert path.exists()
+
+
+def test_saved_file_is_json_with_entries_key(tmp_path):
+    catalog = Catalog()
+    catalog.register(make_entry("a"))
+    path = tmp_path / "c.json"
+    catalog.save(path)
+    data = json.loads(path.read_text())
+    assert list(data) == ["entries"]
+    assert data["entries"][0]["name"] == "a"
+
+
+def test_save_overwrites_the_old_file(tmp_path):
+    path = tmp_path / "c.json"
+    first = Catalog()
+    first.register(make_entry("a"))
+    first.register(make_entry("b"))
+    first.save(path)
+
+    second = Catalog()
+    second.register(make_entry("c"))
+    second.save(path)
+    assert Catalog.load(path).names() == ["c"]

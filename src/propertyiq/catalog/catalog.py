@@ -1,3 +1,5 @@
+import json
+from pathlib import Path
 
 from propertyiq.catalog.entries import DatasetEntry
 
@@ -39,3 +41,23 @@ class Catalog:
                     matches.append(entry)
                     break
         return matches
+
+    def save(self, path: str | Path) -> None:
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        items = []
+        for name in self.names():
+            items.append(self._entries[name].to_dict())
+        data = {"entries": items}
+        path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+    @classmethod
+    def load(cls, path: str | Path) -> "Catalog":
+        path = Path(path)
+        catalog = cls()
+        if not path.exists():
+            return catalog
+        data = json.loads(path.read_text())
+        for item in data["entries"]:
+            catalog.register(DatasetEntry.from_dict(item))
+        return catalog
