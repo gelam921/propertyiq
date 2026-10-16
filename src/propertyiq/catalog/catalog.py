@@ -2,12 +2,14 @@ import json
 from pathlib import Path
 
 from propertyiq.catalog.entries import DatasetEntry
+from propertyiq.catalog.lineage import LineageGraph
 
 
 class Catalog:
 
     def __init__(self) -> None:
         self._entries: dict[str, DatasetEntry] = {}
+        self.lineage = LineageGraph()
 
     def register(self, entry: DatasetEntry) -> None:
         self._entries[entry.name] = entry
@@ -33,9 +35,9 @@ class Catalog:
             entry = self._entries[name]
             texts = [entry.name, entry.description]
             for tag in entry.tags:
-                texts.append(tag)
+                texts.extend(entry.tags)
             for column in entry.columns:
-                texts.append(column.name)
+                texts.extend(column.name for column in entry.columns)
             for text in texts:
                 if term in text.lower():
                     matches.append(entry)
@@ -48,7 +50,7 @@ class Catalog:
         items = []
         for name in self.names():
             items.append(self._entries[name].to_dict())
-        data = {"entries": items}
+        data = {"entries": items, "lineage": self.lineage.to_list()}
         path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
     @classmethod
@@ -60,4 +62,5 @@ class Catalog:
         data = json.loads(path.read_text())
         for item in data["entries"]:
             catalog.register(DatasetEntry.from_dict(item))
+            catalog.lineage = LineageGraph.from_list(data.get("lineage", []))
         return catalog

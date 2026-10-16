@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from propertyiq.catalog.entries import DatasetEntry
 
 
@@ -9,9 +10,9 @@ class LineageEdge:
     steps: tuple[str, ...]
 
 
-class LineageGraph():
+class LineageGraph:
     def __init__(self) -> None:
-        self._edges: dict[str, DatasetEntry] = {}
+        self._edges: dict[str, DatasetEntry] = []
 
     def add(self, source, target, steps: list[str]) -> None:
         if source == target:
@@ -43,4 +44,16 @@ class LineageGraph():
                     found.add(parent_link.target)
                     to_check.append(parent_link.target)
         return found
-            
+
+    def to_list(self) -> list[dict]:
+        items = []
+        for edge in self._edges:
+            items.append({"source": edge.source, "target": edge.target, "steps": list(edge.steps)})
+        return items
+
+    @classmethod
+    def from_list(cls, items: list[dict]) -> "LineageGraph":
+        graph = cls()
+        for item in items:
+            graph.add(item["source"], item["target"], item["steps"])
+        return graph

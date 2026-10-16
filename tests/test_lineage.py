@@ -1,3 +1,4 @@
+import json
 from dataclasses import FrozenInstanceError
 
 import pytest
@@ -72,3 +73,25 @@ def test_a_loop_in_the_data_does_not_hang():
     graph.add("a", "b", [])
     graph.add("b", "a", [])
     assert "b" in graph.upstream("a")
+
+
+def test_to_list_is_plain_data():
+    graph = LineageGraph()
+    graph.add("a", "b", ["x", "y"])
+    assert graph.to_list() == [{"source": "a", "target": "b", "steps": ["x", "y"]}]
+
+
+def test_from_list_round_trip():
+    graph = LineageGraph()
+    graph.add("a", "b", ["x"])
+    graph.add("b", "c", [])
+    rebuilt = LineageGraph.from_list(graph.to_list())
+    assert rebuilt.edges() == graph.edges()
+
+
+def test_survives_json_text():
+    graph = LineageGraph()
+    graph.add("a", "b", [])
+    graph.add("b", "c", [])
+    rebuilt = LineageGraph.from_list(json.loads(json.dumps(graph.to_list())))
+    assert rebuilt.upstream("c") == {"a", "b"}

@@ -264,9 +264,8 @@ def test_saved_file_is_json_with_entries_key(tmp_path):
     path = tmp_path / "c.json"
     catalog.save(path)
     data = json.loads(path.read_text())
-    assert list(data) == ["entries"]
+    assert list(data) == ["entries", "lineage"]
     assert data["entries"][0]["name"] == "a"
-
 
 def test_save_overwrites_the_old_file(tmp_path):
     path = tmp_path / "c.json"
@@ -279,3 +278,26 @@ def test_save_overwrites_the_old_file(tmp_path):
     second.register(make_entry("c"))
     second.save(path)
     assert Catalog.load(path).names() == ["c"]
+
+
+def test_new_catalog_has_empty_lineage():
+    assert Catalog().lineage.edges() == []
+
+
+def test_lineage_survives_save_and_load(tmp_path):
+    catalog = Catalog()
+    catalog.register(make_entry("raw"))
+    catalog.register(make_entry("clean"))
+    catalog.lineage.add("raw", "clean", ["step1"])
+    path = tmp_path / "c.json"
+    catalog.save(path)
+
+    loaded = Catalog.load(path)
+    assert loaded.lineage.upstream("clean") == {"raw"}
+    assert loaded.lineage.edges() == catalog.lineage.edges()
+
+
+def test_load_file_without_lineage_key(tmp_path):
+    path = tmp_path / "old.json"
+    path.write_text(json.dumps({"entries": []}))
+    assert Catalog.load(path).lineage.edges() == []
