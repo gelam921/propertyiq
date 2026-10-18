@@ -1,4 +1,7 @@
-# A real estate analytics pipeline that catalogs its own data
+# PropertyIQ
+
+A real estate analytics pipeline that catalogs its own data.
+
 ![CI](https://github.com/gelam921/propertyiq/actions/workflows/ci.yml/badge.svg)
 
 ## What it does
@@ -18,6 +21,7 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 
 # 3. Generate a deliberately messy sample dataset (312 listings)
+#    Writes data/raw/listings.csv, so you can skip this if the file is already there
 python scripts/generate_sample_data.py
 
 # 4. Run the pipeline: clean, validate, store, and catalog
@@ -32,7 +36,9 @@ Quality score: 66.7%
   FAIL (1 rows): not_null['address', 'price']
 ```
 
-The 12 duplicate listings are removed, and the quality score reflects one listing with a missing price.
+The 12 duplicate listings are removed. The quality score is the share of rules that passed: here two of three, because one listing has a missing price.
+
+`propertyiq run` also creates `data/warehouse.db` (the cleaned and raw tables) and `data/catalog.json` (the catalog and lineage). Both are generated files and are ignored by git.
 
 ### Explore the results
 
@@ -41,6 +47,19 @@ propertyiq report                           # median price by city
 propertyiq catalog list                     # every dataset in the catalog
 propertyiq catalog search price             # find datasets by name, tag, or column
 propertyiq catalog lineage listings_clean   # what feeds this dataset
+```
+
+`report` prints one row per city and state, most expensive first:
+
+```
+Median price by city
+   city state  listings  median_price  median_price_per_sqft
+Ashburn    VA        44      933127.0                 405.11
+ Denver    CO        52      849115.0                 348.02
+  Boise    ID        56      696967.5                 279.26
+ Austin    TX        48      601880.5                 276.52
+Raleigh    NC        45      554271.5                 257.01
+  Tampa    FL        55      452081.0                 201.02
 ```
 
 Lineage output:
@@ -59,28 +78,30 @@ ruff check .
 
 ## Architecture
 
+Sources feed a pipeline that cleans the data and then checks it against quality rules. The cleaned data is stored in SQLite, and the pipeline announces each finished run to its observers. The catalog listens, so it records the dataset, its quality score, and its lineage on its own. The CLI reads from the catalog and from the stored data.
+
 ```mermaid
 flowchart LR
-    CSV[CSV source] --> P[Pipeline]
-    subgraph P[Pipeline]
+    SRC[Sources: CSV, JSON] --> T
+    subgraph PIPE[Pipeline]
         T[Transformers] --> V[Quality rules]
     end
-    P --> DB[(SQLite)]
-    P -. announces run .-> O[CatalogObserver]
+    PIPE --> DB[(SQLite)]
+    PIPE -. announces run .-> O[CatalogObserver]
     O --> C[Catalog + lineage]
     DB --> A[Analyzers]
     C --> CLI[CLI]
     A --> CLI
 ```
 
-## Design patterns
+## Design patterns and principles
 
-Each pattern is here because it solves a specific problem in the pipeline, not for show.
+Each one is here because it solves a specific problem in the pipeline, not for show.
 
 | Pattern | Where | Why it's used |
 |---|---|---|
-| **Template Method** | `BaseSource.run()` in `ingestion/base.py` | `run()` fixes the order of steps (fetch, convert to a DataFrame, validate the schema). Subclasses like `CSVSource` supply only the parts that differ, so every source behaves consistently. |
-| **Strategy** | `Transformer`, `Rule`, and `Analyzer` base classes | Each family shares one method (`transform`, `check`, `analyze`), so the pipeline, validator, and CLI can run any of them without knowing what they do. Adding a new one means adding a subclass, and nothing else changes. |
+| **Template Method** | `BaseSource.run()` in `ingestion/base.py` | `run()` fixes the order of steps (fetch, convert to a DataFrame, validate the schema). Subclasses like `CSVSource` and `JSONSource` supply only the parts that differ, so every source behaves consistently. |
+| **Strategy** | `Transformer`, `Rule`, and `Analyzer` base classes | Each family shares one method (`transform`, `check`, `analyze`), so the pipeline and validator can run any of them without knowing what they do. Adding a new one means adding a subclass. |
 | **Observer** | `Pipeline` and `CatalogObserver` | The pipeline announces each finished run to its observers and never mentions the catalog. The catalog listens and records the dataset, quality score, and lineage on its own. A logger or alert could be added the same way. |
 | **Repository** | `Repository` and `SQLiteRepository` in `storage/` | The rest of the project saves and loads DataFrames through an abstract interface, so swapping SQLite for Postgres or Parquet touches one file. |
 | **Composition** | `Pipeline` | A pipeline *has* transformers, a validator, and observers, rather than inheriting from them. Behavior is assembled from small parts. |
@@ -88,9 +109,9 @@ Each pattern is here because it solves a specific problem in the pipeline, not f
 
 ### Extending the project
 
-Because of these patterns, new functionality never requires editing existing code:
+Because of these patterns, the core classes (`BaseSource`, `Pipeline`, `Validator`, `Catalog`) don't change when you add functionality. A small amount of wiring, in `runner.py` and the CLI, selects the new piece.
 
-- **A new data source** is a `BaseSource` subclass that implements `fetch()`.
+- **A new data source** is a `BaseSource` subclass that implements `fetch()`. `JSONSource` is the second one.
 - **A new cleaning step** is a `Transformer` subclass.
 - **A new quality check** is a `Rule` subclass.
 - **A new report** is an `Analyzer` subclass.
@@ -105,7 +126,8 @@ propertyiq/
 │   ├── runner.py             # run_listings(): wires source, pipeline, storage, catalog
 │   ├── ingestion/
 │   │   ├── base.py           # BaseSource (Template Method) and SchemaError
-│   │   └── csv_source.py     # CSVSource with column renaming
+│   │   ├── csv_source.py     # CSVSource with column renaming
+│   │   └── json_source.py    # JSONSource for lists of records
 │   ├── processing/
 │   │   ├── base.py           # Transformer base class
 │   │   ├── transformers.py   # PriceNormalizer, AddressStandardizer, Deduplicator, DerivedMetrics
@@ -139,9 +161,14 @@ Dependencies point one way: `catalog` imports from `processing`, and `processing
 
 ## Roadmap
 
-- [x] Second data source: a `BaseSource` subclass for a real provider's export, using `column_map` to normalize its headers
+- [x] `JSONSource`: a second `BaseSource` subclass, added without changing the base class
+- [ ] Choose the source from the CLI (`propertyiq run --source json`), then add a real provider export (Redfin or Zillow) using `column_map`
 - [ ] Census ACS enrichment pipeline, giving a dataset two upstream sources in the lineage graph
 - [ ] More analyzers: price trends over time, listings by state, affordability index
 - [ ] Postgres `Repository` implementation
 - [ ] Schema drift detection that flags when a source changes its columns
 - [ ] Docker setup so the whole project runs with one command
+
+## License
+
+See [LICENSE](LICENSE).
