@@ -139,7 +139,7 @@ Dependencies point one way: `catalog` imports from `processing`, and `processing
 
 ## Roadmap
 
-- [ ] Second data source: a `BaseSource` subclass for a real provider's export, using `column_map` to normalize its headers
+- [x] Second data source: a `BaseSource` subclass for a real provider's export, using `column_map` to normalize its headers
 - [ ] Census ACS enrichment pipeline, giving a dataset two upstream sources in the lineage graph
 - [ ] More analyzers: price trends over time, listings by state, affordability index
 - [ ] Postgres `Repository` implementation
