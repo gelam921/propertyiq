@@ -28,9 +28,7 @@ class BaseSource(ABC):
         return pd.DataFrame(raw)
 
     def validate_schema(self, df):
-        missing_columns = [
-            col for col in self.required_columns if col not in df.columns
-        ]
+        missing_columns = [col for col in self.required_columns if col not in df.columns]
 
         if missing_columns:
             raise SchemaError(

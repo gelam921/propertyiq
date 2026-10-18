@@ -6,9 +6,13 @@ from propertyiq.models import Property
 
 
 def make(**overrides):
-    base = dict(
-        listing_id="L1", address="123 Main St", city="Austin", state="TX", price=450_000
-    )
+    base = {
+        "listing_id": "L1",
+        "address": "123 Main St",
+        "city": "Austin",
+        "state": "TX",
+        "price": 450_000,
+    }
     return Property(**{**base, **overrides})
 
 

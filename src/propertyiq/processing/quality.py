@@ -18,7 +18,6 @@ class Rule(ABC):
 
 
 class NotNullRule(Rule):
-
     def __init__(self, columns: list[str]) -> None:
         self.columns = columns
 
@@ -28,7 +27,6 @@ class NotNullRule(Rule):
 
 
 class RangeRule(Rule):
-
     def __init__(
         self,
         column: str,
@@ -55,7 +53,6 @@ class RangeRule(Rule):
 
 
 class UniqueRule(Rule):
-
     def __init__(self, columns: list[str]) -> None:
         self.columns = columns
 
@@ -77,7 +74,7 @@ class QualityReport:
             return 100.0
         count_passed = sum(r.passed for r in self.results)
         total_results = len(self.results)
-        passed_percentage = round(count_passed/total_results * 100, 1)
+        passed_percentage = round(count_passed / total_results * 100, 1)
         return passed_percentage
 
     @property
@@ -90,13 +87,10 @@ class QualityReport:
 
 
 class Validator:
-
     def __init__(self, rules: list[Rule]) -> None:
         self.rules = rules
 
     def run(self, dataset: str, df: pd.DataFrame) -> QualityReport:
-            out = df
-            findings = [r.check(out) for r in self.rules]
-            return QualityReport(dataset,
-                                 rows=len(out),
-                                 results=findings)
+        out = df
+        findings = [r.check(out) for r in self.rules]
+        return QualityReport(dataset, rows=len(out), results=findings)

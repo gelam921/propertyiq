@@ -9,7 +9,10 @@ from propertyiq.processing.transformers import PriceNormalizer
 
 def make_pipeline(catalog, path=None):
     return Pipeline(
-        "listings", "raw", "clean", [PriceNormalizer()],
+        "listings",
+        "raw",
+        "clean",
+        [PriceNormalizer()],
         rules=[NotNullRule(["price"]), RangeRule("price", min_value=0)],
         observers=[CatalogObserver(catalog, path)],
     )

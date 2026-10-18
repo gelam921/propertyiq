@@ -10,16 +10,15 @@ class CatalogObserver(PipelineObserver):
         self.catalog = catalog
         self.path = path
 
-
     def on_run_complete(self, run: PipelineRun) -> None:
         entry = profile_dataframe(
             run.output_name,
             run.data,
             f"Output of pipeline {run.pipeline!r}",
             ["clean"],
-            run.quality.score if run.quality else None
+            run.quality.score if run.quality else None,
         )
         self.catalog.register(entry)
         self.catalog.lineage.add(run.input_name, run.output_name, run.steps)
-        if self.path: 
+        if self.path:
             self.catalog.save(self.path)

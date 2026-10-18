@@ -36,7 +36,7 @@ def test_not_null_counts_rows_not_cells():
     df = pd.DataFrame({"a": [1, None, None], "b": ["x", None, "z"]})
     result = NotNullRule(["a", "b"]).check(df)
     assert result.passed is False
-    assert result.failed_rows == 2          # rows 1 and 2, even though row 1 has two gaps
+    assert result.failed_rows == 2  # rows 1 and 2, even though row 1 has two gaps
 
 
 def test_not_null_only_checks_listed_columns():
@@ -154,16 +154,18 @@ def test_report_is_frozen():
 
 def test_validator_runs_every_rule():
     df = pd.DataFrame({"id": [1, 1], "price": [5.0, None]})
-    validator = Validator([
-        NotNullRule(["price"]),
-        UniqueRule(["id"]),
-        RangeRule("price", min_value=0),
-    ])
+    validator = Validator(
+        [
+            NotNullRule(["price"]),
+            UniqueRule(["id"]),
+            RangeRule("price", min_value=0),
+        ]
+    )
     report = validator.run("ds", df)
     assert report.dataset == "ds"
     assert report.rows == 2
     assert len(report.results) == 3
-    assert report.score == 33.3          # only the range rule passes
+    assert report.score == 33.3  # only the range rule passes
 
 
 def test_validator_with_no_rules():

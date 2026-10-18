@@ -19,7 +19,7 @@ class ColumnEntry:
             dtype=data["dtype"],
             null_rate=data["null_rate"],
             distinct_count=data["distinct_count"],
-            samples=data["samples"]
+            samples=data["samples"],
         )
 
 
@@ -48,5 +48,5 @@ class DatasetEntry:
             description=data["description"],
             owner=data["owner"],
             tags=data["tags"],
-            quality_score=data["quality_score"]
+            quality_score=data["quality_score"],
         )

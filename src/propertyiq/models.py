@@ -16,7 +16,7 @@ class Property:
     def price_per_sqft(self) -> float | None:
         if not self.sqft:
             return None
-        return round(self.price/self.sqft, ndigits=2)
+        return round(self.price / self.sqft, ndigits=2)
 
     def __str__(self):
         return f"{self.address}, {self.city}, {self.state} (${self.price:,.0f})"

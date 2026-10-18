@@ -5,6 +5,7 @@ from propertyiq.analytics.base import Analyzer
 
 class MedianPriceByCity(Analyzer):
     title = "Median price by city"
+
     def analyze(self, df: pd.DataFrame) -> pd.DataFrame:
         summary = df.groupby(["city", "state"]).agg(
             listings=("price", "size"),

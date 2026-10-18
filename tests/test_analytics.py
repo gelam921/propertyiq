@@ -6,12 +6,14 @@ from propertyiq.analytics.base import Analyzer
 
 
 def sample():
-    return pd.DataFrame({
-        "city": ["A", "A", "B"],
-        "state": ["X", "X", "Y"],
-        "price": [100.0, 300.0, 500.0],
-        "price_per_sqft": [1.0, 3.0, None],
-    })
+    return pd.DataFrame(
+        {
+            "city": ["A", "A", "B"],
+            "state": ["X", "X", "Y"],
+            "price": [100.0, 300.0, 500.0],
+            "price_per_sqft": [1.0, 3.0, None],
+        }
+    )
 
 
 def test_analyzer_is_abstract():
@@ -26,7 +28,11 @@ def test_has_a_title():
 def test_output_columns():
     out = MedianPriceByCity().analyze(sample())
     assert list(out.columns) == [
-        "city", "state", "listings", "median_price", "median_price_per_sqft",
+        "city",
+        "state",
+        "listings",
+        "median_price",
+        "median_price_per_sqft",
     ]
 
 
@@ -53,12 +59,14 @@ def test_index_is_reset():
 
 
 def test_same_city_name_in_two_states_stays_separate():
-    df = pd.DataFrame({
-        "city": ["Springfield", "Springfield"],
-        "state": ["IL", "MO"],
-        "price": [100.0, 200.0],
-        "price_per_sqft": [1.0, 2.0],
-    })
+    df = pd.DataFrame(
+        {
+            "city": ["Springfield", "Springfield"],
+            "state": ["IL", "MO"],
+            "price": [100.0, 200.0],
+            "price_per_sqft": [1.0, 2.0],
+        }
+    )
     assert len(MedianPriceByCity().analyze(df)) == 2
 
 

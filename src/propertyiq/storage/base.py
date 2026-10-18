@@ -4,11 +4,11 @@ import pandas as pd
 
 
 class Repository(ABC):
-    """Repository used to save and load DataFrames """
+    """Repository used to save and load DataFrames"""
 
     @abstractmethod
     def save(self, name: str, df: pd.DataFrame) -> None:
-        """" saves files"""
+        """ " saves files"""
         raise NotImplementedError
 
     @abstractmethod

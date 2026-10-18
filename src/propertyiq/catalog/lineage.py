@@ -18,7 +18,7 @@ class LineageGraph:
         if source == target:
             raise ValueError(f"A dataset cannot feed itself: {source!r}")
         edge = LineageEdge(source, target, tuple(steps))
-        self._edges = [e for e in self._edges if not (e.source == source and e.target == target )]
+        self._edges = [e for e in self._edges if not (e.source == source and e.target == target)]
         self._edges.append(edge)
 
     def edges(self) -> list[LineageEdge]:
@@ -34,6 +34,7 @@ class LineageGraph:
                     found.add(parent_link.source)
                     to_check.append(parent_link.source)
         return found
+
     def downstream(self, name: str) -> set[str]:
         found = set()
         to_check = [name]

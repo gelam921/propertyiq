@@ -11,9 +11,7 @@ def saved_catalog(tmp_path):
     cols = [ColumnEntry("price", "float64", 0.0, 10, ["1.0"])]
     catalog = Catalog()
     catalog.register(DatasetEntry("raw", 312, cols, "ts", tags=["raw"]))
-    catalog.register(
-        DatasetEntry("clean", 300, cols, "ts", tags=["clean"], quality_score=66.7)
-    )
+    catalog.register(DatasetEntry("clean", 300, cols, "ts", tags=["clean"], quality_score=66.7))
     catalog.lineage.add("raw", "clean", ["step1"])
     path = tmp_path / "c.json"
     catalog.save(path)
@@ -68,4 +66,56 @@ def test_lineage_shows_downstream(tmp_path):
 
 def test_lineage_unknown_dataset_fails(tmp_path):
     result = run("catalog", "lineage", "nope", "--catalog", saved_catalog(tmp_path))
+    assert result.exit_code == 1
+
+
+def run_args(listings_csv, tmp_path):
+    return [
+        "--csv",
+        str(listings_csv),
+        "--db",
+        str(tmp_path / "w.db"),
+        "--catalog",
+        str(tmp_path / "c.json"),
+    ]
+
+
+def test_run_command_prints_a_summary(listings_csv, tmp_path):
+    result = run("run", *run_args(listings_csv, tmp_path))
+    assert result.exit_code == 0
+    assert "3 rows in" in result.stdout
+    assert "2 rows out" in result.stdout
+    assert "100.0" in result.stdout
+
+
+def test_run_command_fills_the_catalog(listings_csv, tmp_path):
+    run("run", *run_args(listings_csv, tmp_path))
+    result = run("catalog", "list", "--catalog", str(tmp_path / "c.json"))
+    assert "listings_clean" in result.stdout
+    assert "raw_listings" in result.stdout
+
+
+def test_run_command_with_missing_csv_fails(tmp_path):
+    result = run(
+        "run",
+        "--csv",
+        str(tmp_path / "nope.csv"),
+        "--db",
+        str(tmp_path / "w.db"),
+        "--catalog",
+        str(tmp_path / "c.json"),
+    )
+    assert result.exit_code == 1
+
+
+def test_report_prints_the_analysis(listings_csv, tmp_path):
+    run("run", *run_args(listings_csv, tmp_path))
+    result = run("report", "--db", str(tmp_path / "w.db"))
+    assert result.exit_code == 0
+    assert "Median price by city" in result.stdout
+    assert result.stdout.index("Denver") < result.stdout.index("Austin")
+
+
+def test_report_on_unknown_dataset_fails(tmp_path):
+    result = run("report", "--db", str(tmp_path / "w.db"))
     assert result.exit_code == 1

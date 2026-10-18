@@ -25,11 +25,20 @@ class PipelineObserver(ABC):
     """Anything that wants to hear about finished pipeline runs."""
 
     @abstractmethod
-    def on_run_complete(self, run: Pipeline) -> None:
+    def on_run_complete(self, run: PipelineRun) -> None:
         raise NotImplementedError
 
+
 class Pipeline:
-    def __init__(self, name, input_name, output_name, transformers: list[Transformer], rules: list[Rule] | None = None, observers: list[PipelineObserver] | None = None):
+    def __init__(
+        self,
+        name,
+        input_name,
+        output_name,
+        transformers: list[Transformer],
+        rules: list[Rule] | None = None,
+        observers: list[PipelineObserver] | None = None,
+    ):
         self.name = name
         self.input_name = input_name
         self.output_name = output_name
@@ -42,15 +51,17 @@ class Pipeline:
         for transformer in self.transformers:
             out = transformer.transform(out)
         quality = self.validator.run(self.output_name, out)
-        result = PipelineRun(pipeline=self.name,
-                           input_name=self.input_name,
-                           output_name=self.output_name,
-                           steps=[transformer.name for transformer in self.transformers],
-                           rows_in=len(df),
-                           rows_out=len(out),
-                           data=out,
-                           finished_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                           quality=quality)
+        result = PipelineRun(
+            pipeline=self.name,
+            input_name=self.input_name,
+            output_name=self.output_name,
+            steps=[transformer.name for transformer in self.transformers],
+            rows_in=len(df),
+            rows_out=len(out),
+            data=out,
+            finished_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            quality=quality,
+        )
         for observers in self.observers:
             observers.on_run_complete(result)
         return result

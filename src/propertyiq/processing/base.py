@@ -5,8 +5,8 @@ import pandas as pd
 
 class Transformer(ABC):
     """Transformer class"""
-    name = "transformer"
 
+    name = "transformer"
 
     @abstractmethod
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:

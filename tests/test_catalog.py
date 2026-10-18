@@ -88,8 +88,12 @@ def test_profile_does_not_modify_input():
 def make_entry(name, description="", tags=None, columns=()):
     cols = [ColumnEntry(c, "object", 0.0, 1, []) for c in columns]
     return DatasetEntry(
-        name, 0, cols, "2026-01-01T00:00:00+00:00",
-        description=description, tags=tags or [],
+        name,
+        0,
+        cols,
+        "2026-01-01T00:00:00+00:00",
+        description=description,
+        tags=tags or [],
     )
 
 
@@ -190,8 +194,14 @@ def sample_entry():
         ColumnEntry("city", "object", 0.0, 6, ["Austin"]),
     ]
     return DatasetEntry(
-        "t", 300, cols, "2026-01-01T00:00:00+00:00",
-        description="demo", owner="me", tags=["clean"], quality_score=66.7,
+        "t",
+        300,
+        cols,
+        "2026-01-01T00:00:00+00:00",
+        description="demo",
+        owner="me",
+        tags=["clean"],
+        quality_score=66.7,
     )
 
 
@@ -226,6 +236,7 @@ def test_missing_quality_score_survives():
     entry = DatasetEntry("t", 0, [], "ts")
     text = json.dumps(entry.to_dict())
     assert DatasetEntry.from_dict(json.loads(text)) == entry
+
 
 def test_save_then_load_round_trips(tmp_path):
     catalog = Catalog()
@@ -266,6 +277,7 @@ def test_saved_file_is_json_with_entries_key(tmp_path):
     data = json.loads(path.read_text())
     assert list(data) == ["entries", "lineage"]
     assert data["entries"][0]["name"] == "a"
+
 
 def test_save_overwrites_the_old_file(tmp_path):
     path = tmp_path / "c.json"

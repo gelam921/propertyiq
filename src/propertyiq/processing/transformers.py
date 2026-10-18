@@ -51,5 +51,5 @@ class DerivedMetrics(Transformer):
         df = df.copy()
         sqft = pd.to_numeric(df["sqft"], errors="coerce")
         sqft = sqft.where(sqft > 0)
-        df['price_per_sqft'] = (df["price"] / sqft).round(2)
+        df["price_per_sqft"] = (df["price"] / sqft).round(2)
         return df

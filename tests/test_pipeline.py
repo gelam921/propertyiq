@@ -15,16 +15,16 @@ from propertyiq.processing.transformers import (
 
 
 def make_run(**overrides):
-    base = dict(
-        pipeline="p",
-        input_name="raw",
-        output_name="clean",
-        steps=["a"],
-        rows_in=3,
-        rows_out=2,
-        data=pd.DataFrame({"a": [1, 2]}),
-        finished_at="2026-01-01T00:00:00+00:00",
-    )
+    base = {
+        "pipeline": "p",
+        "input_name": "raw",
+        "output_name": "clean",
+        "steps": ["a"],
+        "rows_in": 3,
+        "rows_out": 2,
+        "data": pd.DataFrame({"a": [1, 2]}),
+        "finished_at": "2026-01-01T00:00:00+00:00",
+    }
     return PipelineRun(**{**base, **overrides})
 
 
@@ -85,15 +85,19 @@ def test_input_dataframe_is_not_modified():
 
 
 def test_full_cleaning_chain():
-    df = pd.DataFrame({
-        "address": [" 1 main st ", "1 MAIN ST"],
-        "city": ["austin", "Austin"],
-        "state": ["tx", "TX"],
-        "price": ["$300,000", "$300,000"],
-        "sqft": [1000, 1000],
-    })
+    df = pd.DataFrame(
+        {
+            "address": [" 1 main st ", "1 MAIN ST"],
+            "city": ["austin", "Austin"],
+            "state": ["tx", "TX"],
+            "price": ["$300,000", "$300,000"],
+            "sqft": [1000, 1000],
+        }
+    )
     pipe = Pipeline(
-        "listings", "raw", "clean",
+        "listings",
+        "raw",
+        "clean",
         [
             PriceNormalizer(),
             AddressStandardizer(),
@@ -105,7 +109,10 @@ def test_full_cleaning_chain():
     assert run.rows_out == 1
     assert run.data["price_per_sqft"].iloc[0] == 300.0
     assert run.steps == [
-        "price_normalizer", "address_standardizer", "deduplicator", "derived_metrics",
+        "price_normalizer",
+        "address_standardizer",
+        "deduplicator",
+        "derived_metrics",
     ]
 
 
@@ -118,11 +125,9 @@ def test_run_without_rules_has_a_perfect_report():
 
 def test_run_validates_the_cleaned_output_not_the_input():
     df = pd.DataFrame({"id": [1, 1, 2]})
-    pipe = Pipeline(
-        "p", "raw", "clean", [Deduplicator(subset=["id"])], rules=[UniqueRule(["id"])]
-    )
+    pipe = Pipeline("p", "raw", "clean", [Deduplicator(subset=["id"])], rules=[UniqueRule(["id"])])
     run = pipe.run(df)
-    assert run.quality.passed is True       # duplicates were removed before the check
+    assert run.quality.passed is True  # duplicates were removed before the check
     assert run.quality.dataset == "clean"
     assert run.quality.rows == 2
 
@@ -130,7 +135,10 @@ def test_run_validates_the_cleaned_output_not_the_input():
 def test_run_report_records_failures():
     df = pd.DataFrame({"price": [100.0, None]})
     pipe = Pipeline(
-        "p", "raw", "clean", [],
+        "p",
+        "raw",
+        "clean",
+        [],
         rules=[NotNullRule(["price"]), RangeRule("price", min_value=0)],
     )
     run = pipe.run(df)

@@ -6,7 +6,6 @@ from propertyiq.catalog.lineage import LineageGraph
 
 
 class Catalog:
-
     def __init__(self) -> None:
         self._entries: dict[str, DatasetEntry] = {}
         self.lineage = LineageGraph()
