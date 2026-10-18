@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 
 from propertyiq.processing.base import Transformer
-from propertyiq.processing.pipeline import Pipeline, PipelineRun
+from propertyiq.processing.pipeline import Pipeline, PipelineObserver, PipelineRun
 from propertyiq.processing.quality import NotNullRule, QualityReport, RangeRule, UniqueRule
 from propertyiq.processing.transformers import (
     AddressStandardizer,
@@ -137,3 +137,37 @@ def test_run_report_records_failures():
     assert run.quality.score == 50.0
     assert len(run.quality.failures) == 1
     assert run.quality.failures[0].failed_rows == 1
+
+
+class Recorder(PipelineObserver):
+    def __init__(self):
+        self.runs = []
+
+    def on_run_complete(self, run):
+        self.runs.append(run)
+
+
+def test_observer_is_abstract():
+    with pytest.raises(TypeError):
+        PipelineObserver()
+
+
+def test_observer_receives_the_run():
+    rec = Recorder()
+    pipe = Pipeline("p", "raw", "clean", [], observers=[rec])
+    run = pipe.run(pd.DataFrame({"a": [1]}))
+    assert len(rec.runs) == 1
+    assert rec.runs[0] is run
+
+
+def test_every_observer_is_told():
+    first, second = Recorder(), Recorder()
+    Pipeline("p", "raw", "clean", [], observers=[first, second]).run(pd.DataFrame({"a": [1]}))
+    assert len(first.runs) == 1
+    assert len(second.runs) == 1
+
+
+def test_observer_sees_the_quality_report():
+    rec = Recorder()
+    Pipeline("p", "raw", "clean", [], observers=[rec]).run(pd.DataFrame({"a": [1]}))
+    assert rec.runs[0].quality.score == 100.0
