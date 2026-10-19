@@ -161,13 +161,20 @@ Dependencies point one way: `catalog` imports from `processing`, and `processing
 
 ## Roadmap
 
+**v0.2: ingestion**
 - [x] `JSONSource`: a second `BaseSource` subclass, added without changing the base class
-- [ ] Choose the source from the CLI (`propertyiq run --source json`), then add a real provider export (Redfin or Zillow) using `column_map`
-- [ ] Census ACS enrichment pipeline, giving a dataset two upstream sources in the lineage graph
-- [ ] More analyzers: price trends over time, listings by state, affordability index
-- [ ] Postgres `Repository` implementation
-- [ ] Schema drift detection that flags when a source changes its columns
-- [ ] Docker setup so the whole project runs with one command
+- [ ] `RedfinSource`: a real provider export, using `column_map`
+- [ ] Choose the source from the CLI (`propertyiq run --source redfin`)
+
+**v0.3: dashboard**
+- [ ] Streamlit dashboard: dataset overview, column profiles, lineage graph, and price analysis
+
+**v0.4: enrichment**
+- [ ] Census ACS enrichment pipeline, joined to listings by ZIP, giving a dataset two upstream sources
+
+**Not planned**
+
+Postgres storage, incremental loads and scheduling, a web API, and hosted deployment.
 
 ## License
 
